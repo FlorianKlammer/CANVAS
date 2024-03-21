@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings
+  scaleFactor = "0.25"
+  isFullscreen = "0"
+  playerSize = "200"
+  pickupSize = "150"
+  sizeChange = "80"
+  pickupLimit = "12"
+/>
