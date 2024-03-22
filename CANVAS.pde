@@ -2,7 +2,6 @@
 // TODO: Add Start State where Players can choose a Palette
 // TODO: Add Start State where Players can choose a Background Color
 // TODO: Create a Pickupgenerator Class thats creating different Pickups determined by the Palette
-// TODO: Make it line based instead of Circles
 // TODO: Change Size Pickup Effectiveness
 // TODO: Fix Bleeding into the Edge
 // TODO: (Lasch) Add Music
@@ -10,7 +9,6 @@
 // TODO: coole Animations
 
 
-// TODO: Brush
 // TODO: Sound
 // TODO: Color Palette
 // TODO: TouchOSC Reset / Save Image
@@ -26,6 +24,7 @@ import oscP5.*;
 TuioProcessing tuioClient;
 
 OscP5 oscP5;
+int oscPort = 8000;
 
 float SF = 0.25;   ///Declaration and Initialization of a variable
 
@@ -69,7 +68,7 @@ void settings(){
 }
 
 void setup(){
-  oscP5 = new OscP5(this,8000);
+  oscP5 = new OscP5(this,oscPort);
 
   tuioClient  = new TuioProcessing(this);
   playerList = new ArrayList<Player>();
