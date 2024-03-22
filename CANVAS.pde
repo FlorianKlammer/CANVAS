@@ -20,11 +20,15 @@
 import TUIO.*;
 import java.util.HashMap;
 import oscP5.*;
+import processing.sound.*;
 
 TuioProcessing tuioClient;
 
 OscP5 oscP5;
 int oscPort = 8000;
+
+SoundFile music;
+SoundFile sfx;
 
 float SF = 0.25;   ///Declaration and Initialization of a variable
 
@@ -70,6 +74,11 @@ void settings(){
 void setup(){
   oscP5 = new OscP5(this,oscPort);
 
+  music = new SoundFile(this, "sound/CANVAS_Soundtrack.mp3");
+  music.loop();
+
+  sfx = new SoundFile(this, "sound/sine_pluck.wav");
+
   tuioClient  = new TuioProcessing(this);
   playerList = new ArrayList<Player>();
 
@@ -107,6 +116,7 @@ void draw(){
       if(pickup.collision(tPl)){
         keysToRemove.add(j);
         changeBrushSettings(pickup, tPl);
+        sfx.play();
       }
 
       else if(pickup.getFrameCreated()+1200<frameCount){

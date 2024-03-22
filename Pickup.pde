@@ -30,6 +30,7 @@ class Pickup{
         else{
             b = false;
         }
+        
 
         return b;
     }
