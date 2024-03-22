@@ -21,8 +21,11 @@
 
 import TUIO.*;
 import java.util.HashMap;
+import oscP5.*;
 
 TuioProcessing tuioClient;
+
+OscP5 oscP5;
 
 float SF = 0.25;   ///Declaration and Initialization of a variable
 
@@ -66,6 +69,8 @@ void settings(){
 }
 
 void setup(){
+  oscP5 = new OscP5(this,8000);
+
   tuioClient  = new TuioProcessing(this);
   playerList = new ArrayList<Player>();
 
@@ -176,5 +181,17 @@ Pickup addPickup(){
   }
 
   return p;
+
+}
+
+void oscEvent(OscMessage theOscMessage) {
+  println("### received an osc message.");
+  
+  if(theOscMessage.addrPattern().equals("/Basic/reset") && theOscMessage.get(0).floatValue()==1.0){
+    println("Command: RESET SCREEN");
+    noStroke();
+    fill(255);
+    rect(0,0,width,height/2);
+  }
 
 }
