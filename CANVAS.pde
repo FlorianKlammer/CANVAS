@@ -9,7 +9,7 @@
 // TODO: coole Animations
 
 
-// TODO: Sound
+// TODO: Sound Settings, Physics Settings
 // TODO: Color Palette
 // TODO: TouchOSC Reset / Save Image
 
@@ -26,6 +26,7 @@ TuioProcessing tuioClient;
 
 OscP5 oscP5;
 int oscPort = 8000;
+boolean oscReset = false;
 
 SoundFile music;
 SoundFile sfx;
@@ -75,7 +76,9 @@ void setup(){
   oscP5 = new OscP5(this,oscPort);
 
   music = new SoundFile(this, "sound/CANVAS_Soundtrack.mp3");
+  music.amp(0.8);
   music.loop();
+
 
   sfx = new SoundFile(this, "sound/sine_pluck.wav");
 
@@ -142,6 +145,11 @@ void draw(){
   displayFade();
   displayPickups();
 
+  if(oscReset){
+    resetCanvas();
+    oscReset = false;
+  }
+
   
 }
 
@@ -193,14 +201,19 @@ Pickup addPickup(){
 
 }
 
+void resetCanvas(){
+  noStroke();
+  rectMode(CORNER);
+  fill(255);
+  rect(0,0,width,height/2);
+}
+
+
 void oscEvent(OscMessage theOscMessage) {
   println("### received an osc message.");
   
   if(theOscMessage.addrPattern().equals("/Basic/reset") && theOscMessage.get(0).floatValue()==1.0){
-    println("Command: RESET SCREEN");
-    noStroke();
-    fill(255);
-    rect(0,0,width,height/2);
+    oscReset = true;
   }
 
 }
