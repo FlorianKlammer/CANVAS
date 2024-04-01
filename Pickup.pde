@@ -77,7 +77,7 @@ class ColorPickup extends Pickup{
     ColorPickup(){
         super();
 
-        myColor = color(random(0,255), random(0,255), random(0,255));
+        myColor = randomColor(c_palette);
     }
 
     ColorPickup(color c){
@@ -90,7 +90,7 @@ class ColorPickup extends Pickup{
         noStroke();
         fill(myColor);
         ellipse(x,y,size, size);
-        fill(0);
+        fill(bg);
         ellipse(x,y,size*0.9, size*0.9);
         fill(myColor);
         ellipse(x,y,size*0.7, size*0.7);

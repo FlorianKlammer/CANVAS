@@ -27,6 +27,7 @@ TuioProcessing tuioClient;
 OscP5 oscP5;
 int oscPort = 8000;
 boolean oscReset = false;
+boolean oscCPickup = false;
 
 SoundFile music;
 SoundFile sfx;
@@ -51,6 +52,38 @@ ArrayList<Player> playerList;
 HashMap<Integer, Pickup> pickupMap;
 ArrayList<Integer> keysToRemove = new ArrayList<Integer>();
 int maxKey = 1; // Continously increasing value used for creating ids in the pickupMap
+
+// Colors
+color bg =  #eae3d0;
+
+color[] c_palette = {
+  #FFFFFF,
+  #000000,
+  #b91c1c,
+  #ea580c,
+  #7c2d12,
+  #fcd34d,
+  #a3e635,
+  #365314,
+  #34d399,
+  #14b8a6,
+  #67e8f9,
+  #0284c7,
+  #6d28d9,
+  #f472b6,
+  #e11d48
+}; 
+
+color randomColor(color[] palette) {
+  color c;
+
+  int choice = (int) random(palette.length);
+
+  c = palette[choice];
+
+  return c;
+}
+
 
 void settings(){
   xml = loadXML("settings.xml");
@@ -88,9 +121,9 @@ void setup(){
 
   // Canvas Setup
   noStroke(); 
-  fill(255);
+  fill(bg);
   rect(0,0,width,height/2);
-  fill(0);
+  fill(bg);
   rect(0,height/2, width, height);
 
   //Initialize Pickups
@@ -150,11 +183,17 @@ void draw(){
     oscReset = false;
   }
 
+  if(oscCPickup){
+    pickupMap.put(maxKey, addPickup());
+    maxKey += 1;
+    oscCPickup = false;
+  }
+
   
 }
 
 void displayFade(){
-  fill(0,0,0,40);
+  fill(bg,80);
   noStroke();
 
   rect(0,height/2, width, height);
@@ -188,14 +227,14 @@ void changeBrushSettings(Pickup pickup, Player tPl){
 Pickup addPickup(){
   int choice = (int) random(0,2); 
 
-  Pickup p;
+  Pickup p = new ColorPickup();
 
-  if(choice==0){
-    p = new ColorPickup();
-  }
-  else{
-    p = new SizePickup();
-  }
+  // if(choice==0){
+  //   p = new ColorPickup();
+  // }
+  // else{
+  //   p = new SizePickup();
+  // }
 
   return p;
 
@@ -204,7 +243,7 @@ Pickup addPickup(){
 void resetCanvas(){
   noStroke();
   rectMode(CORNER);
-  fill(255);
+  fill(bg);
   rect(0,0,width,height/2);
 }
 
@@ -214,6 +253,10 @@ void oscEvent(OscMessage theOscMessage) {
   
   if(theOscMessage.addrPattern().equals("/Basic/reset") && theOscMessage.get(0).floatValue()==1.0){
     oscReset = true;
+  }
+
+  if(theOscMessage.addrPattern().equals("/Basic/spawn_color") && theOscMessage.get(0).floatValue()==1.0){
+    oscCPickup = true;
   }
 
 }

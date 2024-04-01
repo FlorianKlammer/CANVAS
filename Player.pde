@@ -28,7 +28,7 @@ class Player{
   Player(TuioCursor tc){
     myCursor = tc;
     mySize = default_player_size * SF;
-    myColor = color(random(0,255), random(0,255), random(0,255));
+    myColor = randomColor(c_palette);
 
     xPos = myCursor.getScreenX(int(DS_WIDTH)) * SF;
     yPos = myCursor.getScreenY(int(DS_HEIGHT)) * SF + DS_HEIGHT*SF;

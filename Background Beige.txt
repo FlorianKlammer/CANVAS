@@ -1,0 +1,17 @@
+Background: Beige
+
+Weiß: #FFFFFF
+Schwarz: #000000
+red: rgb(185 28 28); #b91c1c
+orange: rgb(234 88 12); #ea580c
+brown: rgb(124 45 18);#7c2d12
+yellow: rgb(252 211 77);#fcd34d
+green: rgb(163 230 53); #a3e635
+dark-green: rgb(54 83 20);#365314
+türkis: rgb(52 211 153); #34d399
+teal: rgb(20 184 166);#14b8a6
+cyan-light: rgb(103 232 249);  #67e8f9
+sky-dark: rgb(2 132 199) #0284c7
+violet: rgb(109 40 217); #6d28d9
+pink: rgb(244 114 182);#f472b6
+rose: rgb(225 29 72); #e11d48
